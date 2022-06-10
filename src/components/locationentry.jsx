@@ -94,7 +94,16 @@ class LocationEntry extends Component {
               });
             });
           } else if (result.state === "prompt") {
-            navigator.geolocation.getCurrentPosition(success, errors, options);
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                self.setState({
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude,
+                });
+              },
+              errors,
+              options
+            );
           } else if (result.state === "denied") {
             console.log("d");
             //If denied then you have to show instructions to enable location
